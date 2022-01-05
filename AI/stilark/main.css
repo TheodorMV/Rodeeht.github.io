@@ -183,6 +183,7 @@ button{
     
     .main{
         width:100%;
+        top: 25px;
     }
     .kode, .pip {
         font-size: 0.8rem;
