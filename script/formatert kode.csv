@@ -1,0 +1,117 @@
+"<li>﻿""""""""""""""imports""""""""""""""</li>"
+<li> </li>
+"<li><span class=""operator"">import</span> <span class=""klasse"">tensorflow</span> <span class=""operator"">as</span> <span class=""klasse"">tf</span></li>"
+"<li><span class=""operator"">from</span> <span class=""klasse"">tensorflow</span>.<span class=""klasse"">keras</span>.layers <span class=""operator"">import</span> <span class=""klasse"">Dense</span>, <span class=""klasse"">Activation</span></li>"
+"<li><span class=""operator"">from</span> <span class=""klasse"">tensorflow</span>.<span class=""klasse"">keras</span>.models <span class=""operator"">import</span> <span class=""klasse"">Sequential</span></li>"
+"<li><span class=""operator"">from</span> <span class=""klasse"">tensorflow</span>.<span class=""klasse"">keras</span>.optimizers <span class=""operator"">import</span> <span class=""klasse"">Adam</span></li>"
+"<li><span class=""operator"">import</span> <span class=""klasse"">numpy</span> <span class=""operator"">as</span> <span class=""klasse"">np</span></li>"
+"<li><span class=""operator"">import</span> <span class=""klasse"">os</span></li>"
+<li> </li>
+"<li><span class=""variabel"">PATH</span> = <span class=""klasse"">os</span>.<span class=""variabel"">path</span>.<span class=""metfun"">dirname</span>(<span class=""variabel"">__file__</span>)</li>"
+"<li><span class=""klasse"">os</span>.<span class=""metfun"">chdir</span>(<span class=""variabel"">PATH</span>)</li>"
+<li> </li>
+<li> </li>
+"<li>""""""retrive data""""""</li>"
+<li> </li>
+"<li>(<span class=""variabel"">train_x</span>, <span class=""variabel"">train_y</span>),(<span class=""variabel"">test_x</span>, <span class=""variabel"">test_y</span>) = <span class=""klasse"">tf</span>.<span class=""klasse"">keras</span>.datasets.mnist.load_data()</li>"
+<li> </li>
+"<li>""""""format data""""""</li>"
+<li> </li>
+"<li><span class=""variabel"">train_x</span> = <span class=""variabel"">train_x</span>.reshape(-1,784)</li>"
+"<li><span class=""variabel"">test_x</span> = <span class=""variabel"">test_x</span>.reshape(-1,784)</li>"
+<li> </li>
+<li>y_table= []</li>
+"<li><span class=""operator"">for</span> <span class=""variabel"">y</span> <span class=""operator"">in</span> [<span class=""variabel"">train_y</span>,<span class=""variabel"">test_y</span>]:</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">y</span> = <span class=""klasse"">list</span>(<span class=""variabel"">y</span>)</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">use</span> = []</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""operator"">for</span> <span class=""variabel"">i</span> <span class=""operator"">in</span> <span class=""klasse"">range</span>(<span class=""metfun"">len</span>(<span class=""variabel"">y</span>)):</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">use</span>.<span class=""metfun"">append</span>((<span class=""variabel"">y</span>[<span class=""variabel"">i</span>],<span class=""variabel"">i</span>))</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""operator"">for</span> <span class=""variabel"">sannhet</span>, <span class=""variabel"">element</span> <span class=""operator"">in</span> <span class=""variabel"">use</span>:</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">temp</span> = <span class=""klasse"">np</span>.<span class=""metfun"">zeros</span>(shape=(10,))</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">temp</span>[<span class=""variabel"">sannhet</span>] = 1</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">y</span>[<span class=""variabel"">element</span>] = <span class=""variabel"">temp</span></li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">y_table</span>.<span class=""metfun"">append</span>(<span class=""klasse"">np</span>.array(<span class=""variabel"">y</span>))</li>"
+<li> </li>
+"<li><span class=""variabel"">train_y</span> = <span class=""variabel"">y_table</span>[0]</li>"
+"<li><span class=""variabel"">test_y</span> = <span class=""variabel"">y_table</span>[1]</li>"
+<li> </li>
+"<li>""""""lag model""""""</li>"
+<li> </li>
+"<li><span class=""variabel"">model</span> = <span class=""klasse"">Sequential</span>()</li>"
+"<li><span class=""variabel"">model</span>.<span class=""metfun"">add</span>(<span class=""klasse"">Dense</span>(256,input_shape = (784,)))</li>"
+"<li><span class=""variabel"">model</span>.<span class=""metfun"">add</span>(<span class=""klasse"">Activation</span>(""tanh""))</li>"
+<li> </li>
+"<li><span class=""variabel"">model</span>.<span class=""metfun"">add</span>(<span class=""klasse"">Dense</span>(128))</li>"
+"<li><span class=""variabel"">model</span>.<span class=""metfun"">add</span>(<span class=""klasse"">Activation</span>(""tanh""))</li>"
+<li> </li>
+"<li><span class=""variabel"">model</span>.<span class=""metfun"">add</span>(<span class=""klasse"">Dense</span>(64))</li>"
+"<li><span class=""variabel"">model</span>.<span class=""metfun"">add</span>(<span class=""klasse"">Activation</span>(""tanh""))</li>"
+<li> </li>
+"<li><span class=""variabel"">model</span>.<span class=""metfun"">add</span>(<span class=""klasse"">Dense</span>(10))</li>"
+"<li><span class=""variabel"">model</span>.<span class=""metfun"">add</span>(<span class=""klasse"">Activation</span>(""softmax""))</li>"
+<li> </li>
+"<li><span class=""variabel"">model</span>.<span class=""metfun"">compile</span>(loss=""categorical_crossentropy"", optimizer = <span class=""klasse"">Adam</span>(learning_rate=1e-3), metrics=[""accuracy""])</li>"
+<li> </li>
+"<li>""""""tren modell""""""</li>"
+"<li><span class=""variabel"">model</span>.<span class=""metfun"">fit</span>(<span class=""variabel"">train_x</span>, <span class=""variabel"">train_y</span>,batch_size=64, epochs=10,validation_split=0.1)</li>"
+<li> </li>
+"<li>""""""sjekk riktighet""""""</li>"
+<li> </li>
+"<li>predictions = <span class=""variabel"">model</span>.<span class=""metfun"">predict</span>(<span class=""variabel"">test_x</span>, batch_size=32)</li>"
+<li> </li>
+"<li><span class=""variabel"">acc_sum</span> = 0</li>"
+"<li><span class=""variabel"">prediction_n</span> = <span class=""metfun"">len</span>(predictions)</li>"
+"<li><span class=""operator"">for</span> <span class=""variabel"">i</span> <span class=""operator"">in</span> <span class=""klasse"">range</span>(<span class=""variabel"">prediction_n</span>):</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">prediction</span> = <span class=""klasse"">np</span>.<span class=""metfun"">argmax</span>(predictions[<span class=""variabel"">i</span>])</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""operator"">if</span> <span class=""variabel"">prediction</span> == <span class=""klasse"">np</span>.<span class=""metfun"">argmax</span>(<span class=""variabel"">test_y</span>[<span class=""variabel"">i</span>]):</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">acc_sum</span> += 1</li>"
+<li> </li>
+"<li><span class=""variabel"">acc</span> = (acc_sum/prediction_n)*100</li>"
+<li> </li>
+"<li><span class=""metfun"">print</span>(f""accuracy is {<span class=""variabel"">acc</span>}%"")</li>"
+<li> </li>
+"<li><span class=""variabel"">model</span>.<span class=""metfun"">save</span>(PATH+""/modeller/min_model"")</li>"
+<li> </li>
+"<li><span class=""operator"">import</span> <span class=""klasse"">tensorflow</span> <span class=""operator"">as</span> <span class=""klasse"">tf</span></li>"
+"<li><span class=""operator"">import</span> <span class=""klasse"">numpy</span> <span class=""operator"">as</span> <span class=""klasse"">np</span></li>"
+"<li><span class=""operator"">import</span> <span class=""klasse"">os</span></li>"
+"<li><span class=""operator"">import</span> <span class=""klasse"">cv2</span></li>"
+<li> </li>
+"<li><span class=""variabel"">PATH</span> = <span class=""klasse"">os</span>.<span class=""variabel"">path</span>.<span class=""metfun"">dirname</span>(<span class=""variabel"">__file__</span>)</li>"
+"<li><span class=""klasse"">os</span>.<span class=""metfun"">chdir</span>(<span class=""variabel"">PATH</span>)</li>"
+<li> </li>
+"<li>""""""formater bilder""""""</li>"
+<li> </li>
+"<li><span class=""variabel"">data</span> = []</li>"
+"<li><span class=""variabel"">file_inputs</span> = <span class=""klasse"">os</span>.<span class=""metfun"">listdir</span>(PATH+""/inputs"")</li>"
+"<li><span class=""metfun"">print</span>(<span class=""variabel"">file_inputs</span>)</li>"
+"<li><span class=""operator"">for</span> <span class=""variabel"">fil</span> <span class=""operator"">in</span> <span class=""variabel"">file_inputs</span>:</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">bilde_array</span> = <span class=""klasse"">cv2</span>.<span class=""metfun"">imread</span>(""inputs/""+fil, <span class=""klasse"">cv2</span>.IMREAD_GRAYSCALE)</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">bilde</span> = <span class=""klasse"">cv2</span>.<span class=""metfun"">resize</span>(<span class=""variabel"">bilde_array</span>, (28,28))</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">bilde</span> = <span class=""klasse"">cv2</span>.<span class=""metfun"">GaussianBlur</span>(<span class=""variabel"">bilde</span>, ksize = (3,3), sigmaX=34, sigmaY=36)</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">bilde</span> = <span class=""variabel"">bilde</span>.reshape(784)</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">bilde</span> = (255-bilde)</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">data</span>.<span class=""metfun"">append</span>(<span class=""variabel"">bilde</span>)</li>"
+<li> </li>
+"<li><span class=""variabel"">data</span> = <span class=""klasse"">np</span>.array(<span class=""variabel"">data</span>)</li>"
+<li> </li>
+"<li>""""""prøv og forstå hva det er <span class=""variabel"">bilde</span> av""""""</li>"
+"<li><span class=""variabel"">model</span> = <span class=""klasse"">tf</span>.<span class=""klasse"">keras</span>.models.load_model(PATH+""/modeller/min_model"")</li>"
+"<li><span class=""variabel"">outputs</span> = <span class=""variabel"">model</span>.<span class=""metfun"">predict</span>(<span class=""variabel"">data</span>, batch_size = 2)</li>"
+<li> </li>
+"<li>""""""skriv ut svarene""""""</li>"
+<li> </li>
+"<li><span class=""variabel"">outnums</span> = []</li>"
+"<li><span class=""operator"">for</span> <span class=""variabel"">output</span> <span class=""operator"">in</span> <span class=""variabel"">outputs</span>:</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""metfun"">print</span>(<span class=""variabel"">output</span>)</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">out</span> = <span class=""klasse"">np</span>.<span class=""metfun"">argmax</span>(<span class=""variabel"">output</span>)</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">outnums</span>.<span class=""metfun"">append</span>(<span class=""variabel"">out</span>)</li>"
+<li> </li>
+"<li><span class=""variabel"">sum_riktig</span> = 0</li>"
+"<li><span class=""variabel"">in_out</span> = <span class=""klasse"">zip</span>(<span class=""klasse"">tuple</span>(<span class=""variabel"">file_inputs</span>), <span class=""klasse"">tuple</span>(<span class=""variabel"">outnums</span>))</li>"
+"<li><span class=""operator"">for</span> <span class=""variabel"">name</span>, <span class=""variabel"">prediction</span> <span class=""operator"">in</span> <span class=""variabel"">in_out</span>:</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""metfun"">print</span>(f""{<span class=""variabel"">name</span>} er sifferet {<span class=""variabel"">prediction</span>}"")</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""operator"">if</span> <span class=""klasse"">int</span>(<span class=""variabel"">name</span>[0]) == <span class=""variabel"">prediction</span>:</li>"
+"<li><span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""tab"">##</span> <span class=""variabel"">sum_riktig</span> += 1</li>"
+<li> </li>
+"<li><span class=""metfun"">print</span>(f""{sum_riktig/len(<span class=""variabel"">outnums</span>)*100}%"")</li>"

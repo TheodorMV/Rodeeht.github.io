@@ -1,0 +1,44 @@
+
+
+.main{grid-template-areas:"D2""TN""IP""IM""DF""MC""TT";}
+
+
+#IntroOgPip1{grid-area:IP;}
+#import{grid-area:IM;}
+#dataOgFormatering{grid-area:DF;}
+#modelCreation{grid-area:MC;}
+#trainingAndTesting{grid-area:TT;}*/
+
+#del2{
+    margin-bottom:50px;
+    grid-area: D2;
+}
+
+
+#TfNp{
+    display:flex;
+    flex-direction:row;
+    width:70%;
+    justify-content: space-around;
+    margin: 0px auto;
+    gap:5vw;
+    grid-area:TN;
+}
+#TfNp .bilde{
+    width:50%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+#TfNp > .bilde > img{
+    max-width:100%;
+}
+
+@media(max-width:800px){
+    #TfNp{
+        flex-direction:column;
+    }
+    #TfNp .bilde{
+        width:100%;
+    }
+}

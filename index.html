@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="./script/setup.js"></script>
+    <link rel="stylesheet" href="./stilark/page 0.css">
+     <!--kode er hentet fra https://tex.stackexchange.com/questions/23804/how-to-incorporate-tex-mathematics-into-a-website-->
+     <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      </script>
+      <script type="text/javascript"
+        src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      </script>
+    <!---->
+</head>
+<body>
+    <div class="bakgrunn">
+        <img src="./bilder/bakgrunn index.jpg." alt="Bilde som ilustrerer hvordan et nevralt nettverk kan se ut">
+    </div>
+    <div class="main">
+
+        <div class="tekst" id="overskrift"><h1>Kunstig <span class="metfun">intelligens</span></h1>
+            <h3>På denne siden finner du grunnleggende informasjon om nevroner i kunstig intelligens, samt et praktisk eksempel på en intellegens som kan kjenne igjen tall.</h3>
+        </div>
+        <div class="tekst linkbox" id="lk1">
+            <a href="./perseptron.html"><div class="TekstIBoks">1: Grunnleggende bakgrunnskunnskap</div>
+            <!--<div class="exs" id="latexEx">$$ y = \sigma \left(\sum_{n = 0}^{m-1}\left( L_n W_n \right) + b \right) $$</div>--></a>
+        </div>
+        <div class="tekst linkbox" id="lk2">
+            <a href="./tutorial1.html"><div class="TekstIBoks">2: Praksis del 1</div></a>
+        </div>
+        <div class="tekst linkbox" id="lk3">
+            <a href="./tutorial2.html"><div class="TekstIBoks">3: Praksis del 2</div></a>
+        </div>
+    </div>
+    <div class="Neste">
+        <a href="perseptron.html" class="QuickLink"><img class="pil" src="./bilder/pil.svg" alt="pil som han klikkes på for å gå til neste side">
+        </a>
+    </div>
+    <br>
+</body>
+</html>

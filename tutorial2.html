@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praksis 2</title>
+    <script src="./script/setup.js"></script>
+    <link rel="stylesheet" href="./stilark/page 3.css">
+</head>
+<body>
+    <div class="navbar inactive">
+        <ul>
+            <li><a class="intern_link" href="./index.html">0: Hjem</a></li>
+            <li><a class="intern_link" href="./perseptron.html">1: Basics</a></li>
+            <li><a class="intern_link" href="./tutorial1.html">2: Praksis, Trening</a></li>
+            <li><a class="intern_link open" href="./tutorial2.html">3: Praksis, Bruk</a></li>
+        </ul>
+    </div>
+    <div class="altnav">
+        <div class="borgar">
+            <script src="./script/altnav.js"></script>
+            <button type="button" onclick="altnav()" >
+                <svg height="50" width="50" class="burgerIcon">
+                    <circle cx="10" cy="25" r="5" stroke="none" stroke-width="3" fill="hsl(180, 100%, 50%)" />
+                    <line x1="10" y1="25" x2="40" y2="25" style="stroke:hsl(180, 100%, 50%);stroke-width:10" />
+                    <circle cx="40" cy="25" r="5" stroke="none" stroke-width="3" fill="hsl(180, 100%, 50%)" />
+                    
+                    <circle cx="10" cy="10" r="5" stroke="none" stroke-width="3" fill="hsl(25, 100%, 50%)" />
+                    <line x1="10" y1="10" x2="40" y2="10" style="stroke:hsl(25, 100%, 50%);stroke-width:10" />
+                    <circle cx="40" cy="10" r="5" stroke="none" stroke-width="3" fill="hsl(25, 100%, 50%)" />
+                    
+                    <circle cx="10" cy="40" r="5" stroke="none" stroke-width="3" fill="hsl(180, 100%, 50%)" />
+                    <line x1="10" y1="40" x2="40" y2="40" style="stroke:hsl(180, 100%, 50%);stroke-width:10" />
+                    <circle cx="40" cy="40" r="5" stroke="none" stroke-width="3" fill="hsl(180, 100%, 50%)" />
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="main" id="mainT2" >
+        <div class="tekst" id="del3"><h2>Del 3: Hente den lagrede modellen</h2></div>
+        <div class="tekst" id="IntroOgPip2">
+            <p>Som før trenger vi en rekke ekstra biblioteker. I denne delen skal vi bruke de samme som i forrige del med noe ekstra. Det nye biblioteket er cv2 som lar oss hente og manipluere bilder. Kommandoen for å laste det ned er følgenede:</p>
+            <div class="pip">
+                <ul>
+                    <li>pip install opencv-python</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tekst" id="setupOgImports">
+            <p>Før vi kan begynne å skrive kode må vi lage en mappe hvor vi legger bilder vi vil identifisere. Derfor lager vi en mappe i samme mappe scriptet ligger i. Deretter gjør vi samme importer som i forrige del, pluss de to nye. Deretter setter vi filstien.</p>
+            <div class="kodediv">
+                <ol class="kode">
+                    <li> </li>
+                    <li><span class="operator">import</span> <span class="klasse">tensorflow</span> <span class="operator">as</span> <span class="klasse">tf</span></li>
+                    <li><span class="operator">import</span> <span class="klasse">numpy</span> <span class="operator">as</span> <span class="klasse">np</span></li>
+                    <li><span class="operator">import</span> <span class="klasse">os</span></li>
+                    <li><span class="operator">import</span> <span class="klasse">cv2</span></li>
+                    <li> </li>
+                    <li><span class="variabel">PATH</span> = <span class="klasse">os</span>.<span class="variabel">path</span>.<span class="metfun">dirname</span>(<span class="variabel">__file__</span>)</li>
+                    <li><span class="klasse">os</span>.<span class="metfun">chdir</span>(<span class="variabel">PATH</span>)</li>
+                </ol>
+            </div>
+        </div>
+        <div class="tekst" id="Data">
+            <p>Nå som vi har satt en sti og importert bibliotekene våre kan vi laste bildene vi vil teste. Ved hjelp av os og cv2 bibliotekene laster vi inn bildene og formaterer dem slik at de likner på det vi finner i EMNIST datasettet, men vi får det ikke helt nøyaktig likt noe som gjør at modellen gjør det langt dårligere enn den gjorde da den trente.</p>
+            <div class="kodediv">
+                <ol start="11" class="kode">
+                    <li>"""formater bilder"""</li>
+                    <li> </li>
+                    <li><span class="variabel">data</span> = []</li>
+                    <li><span class="variabel">file_inputs</span> = <span class="klasse">os</span>.<span class="metfun">listdir</span>(PATH+"/inputs")</li>
+                    <li><span class="metfun">print</span>(<span class="variabel">file_inputs</span>)</li>
+                    <li><span class="operator">for</span> <span class="variabel">fil</span> <span class="operator">in</span> <span class="variabel">file_inputs</span>:</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="variabel">bilde_array</span> = <span class="klasse">cv2</span>.<span class="metfun">imread</span>("inputs/"+fil, <span class="klasse">cv2</span>.IMREAD_GRAYSCALE)</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="variabel">bilde</span> = <span class="klasse">cv2</span>.<span class="metfun">resize</span>(<span class="variabel">bilde_array</span>, (28,28))</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="variabel">bilde</span> = <span class="klasse">cv2</span>.<span class="metfun">GaussianBlur</span>(<span class="variabel">bilde</span>, ksize = (3,3), sigmaX=34, sigmaY=36)</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="variabel">bilde</span> = <span class="variabel">bilde</span>.<span class="metfun">reshape</span>(784)</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="variabel">bilde</span> = (255 - <span class="variabel">bilde</span>)</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="variabel">data</span>.<span class="metfun">append</span>(<span class="variabel">bilde</span>)</li>
+                    <li> </li>
+                    <li><span class="variabel">data</span> = <span class="klasse">np</span>.<span class="metfun">array</span>(<span class="variabel">data</span>)</li>                                             
+                </ol>
+            </div>
+        </div>
+        <div class="tekst" id="forutseOgSkrivUt">
+            <p>Nå som vi har noken lunde formellert inputene slik at de likner på EMNIST kan nettverket prøve og finne ut hva det er bilde av.</p>
+            <div class="kodediv">
+                <ol start="26" class="kode">
+                    <li> </li>
+                    <li>"""prøv og forstå hva det er bilde av"""</li>
+                    <li><span class="variabel">model</span> = <span class="klasse">tf</span>.<span class="klasse">keras</span>.models.load_model(PATH + "/modeller/min_model")</li>
+                    <li><span class="variabel">outputs</span> = <span class="variabel">model</span>.<span class="metfun">predict</span>(<span class="variabel">data</span>, batch_size = 2)</li>
+                    <li> </li>
+                    <li>"""skriv ut svarene"""</li>
+                    <li> </li>
+                    <li><span class="variabel">outnums</span> = []</li>
+                    <li><span class="operator">for</span> <span class="variabel">output</span> <span class="operator">in</span> <span class="variabel">outputs</span>:</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="metfun">print</span>(<span class="variabel">output</span>)</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="variabel">out</span> = <span class="klasse">np</span>.<span class="metfun">argmax</span>(<span class="variabel">output</span>)</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="variabel">outnums</span>.<span class="metfun">append</span>(<span class="variabel">out</span>)</li>
+                    <li> </li>
+                    <li><span class="variabel">sum_riktig</span> = 0</li>
+                    <li><span class="variabel">in_out</span> = <span class="klasse">zip</span>(<span class="klasse">tuple</span>(<span class="variabel">file_inputs</span>), <span class="klasse">tuple</span>(<span class="variabel">outnums</span>))</li>
+                    <li><span class="operator">for</span> <span class="variabel">name</span>, <span class="variabel">prediction</span> <span class="operator">in</span> <span class="variabel">in_out</span>:</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="metfun">print</span>(f"{<span class="variabel">name</span>} er sifferet {<span class="variabel">prediction</span>}")</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="operator">if</span> <span class="klasse">int</span>(<span class="variabel">name</span>[0]) == <span class="variabel">prediction</span>:</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="tab">##</span> <span class="tab">##</span> <span class="variabel">sum_riktig</span> += 1</li>
+                    <li> </li>
+                    <li><span class="metfun">print</span>(f"{<span class="variabel">sum_riktig</span>/<span class="metfun">len</span>(<span class="variabel">outnums</span>)*100}%")</li>
+                    
+                </ol>
+            </div>
+        </div>
+        <div class="tekst" id="end">
+            <p>Selv om modellen ikke nødvendingvis er helt nøyaktig gir den noen lunde gode gjett for hva den ser. </p>
+        </div>
+    </div>
+    <div class="Forrige">
+        <a href="tutorial1.html" class="QuickLink"><img class="pil" src="./bilder/pil.svg" alt="pil som han klikkes på for å gå til forrige side">
+        </a>
+    </div>
+    <div class="bottom"> </div>
+</body>
+</html>

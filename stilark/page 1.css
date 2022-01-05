@@ -1,0 +1,48 @@
+
+/*funkjons del*/
+#funksjoner{
+    display:grid;
+    padding: 0px 40px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4,80px);
+    gap: 10px;
+    grid-template-areas: "tit tit"
+                         "rel req"
+                         "sig siq"
+                         "tah taq";
+}
+#funksjoner > h3{grid-area: tit;}
+
+.relu > p{grid-area: req;}
+
+.relu > h4{grid-area: rel;}
+
+.sigm > p{grid-area: siq;}
+
+.sigm > h4{grid-area: sig;}
+
+.tanh > p{grid-area: taq;}
+
+.tanh > h4{grid-area: tah;}
+
+.laTEX{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+
+@media(max-width:800px){
+    #funksjoner{
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(7,80px);
+        gap:30px;
+        padding: 0px;
+        grid-template-areas: "tit "
+                         "rel"
+                         "req"
+                         "sig"
+                         "siq"
+                         "tah"
+                         "taq";
+    }
+}

@@ -1,0 +1,27 @@
+.main{
+    grid-template-columns: 1fr;
+    grid-template-areas: "D3""IP""SI""DT""PP""ED";
+}
+#del3{
+    grid-area: D3;
+}
+
+#IntroOgPip2{
+    grid-area:IP;
+}
+
+#setupOgImports{
+    grid-area:SI;
+}
+
+#Data{
+    grid-area:DT;
+}
+
+#forutseOgSkrivUt{
+    grid-area:PP;
+}
+
+#end{
+    grid-area:ED;
+}

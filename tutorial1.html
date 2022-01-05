@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praksis 1</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="./script/setup.js"></script>
+    <link rel="stylesheet" href="./stilark/page 2.css">
+    <!--kode er hentet fra https://tex.stackexchange.com/questions/23804/how-to-incorporate-tex-mathematics-into-a-website-->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      </script>
+      <script type="text/javascript"
+        src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      </script>
+    <!---->
+    
+</head>
+<body>
+    <div class="navbar inactive">
+        <ul>
+            <li><a class="intern_link" href="./index.html" >0: Hjem</a></li>
+            <li><a class="intern_link" href="./perseptron.html" >1: Basics</a></li>
+            <li><a class="intern_link open" href="./tutorial1.html" >2: Praksis, Trening</a></li>
+            <li><a class="intern_link" href="./tutorial2.html" >3: Praksis, Bruk</a></li>
+        </ul>
+    </div>
+    <div class="altnav">
+        <div class="borgar">
+            <script src="./script/altnav.js"></script>
+            <button type="button" onclick="altnav()" >
+                <svg height="50" width="50" class="burgerIcon">
+                    <circle cx="10" cy="25" r="5" stroke="none" stroke-width="3" fill="hsl(180, 100%, 50%)" />
+                    <line x1="10" y1="25" x2="40" y2="25" style="stroke:hsl(180, 100%, 50%);stroke-width:10" />
+                    <circle cx="40" cy="25" r="5" stroke="none" stroke-width="3" fill="hsl(180, 100%, 50%)" />
+                    
+                    <circle cx="10" cy="10" r="5" stroke="none" stroke-width="3" fill="hsl(25, 100%, 50%)" />
+                    <line x1="10" y1="10" x2="40" y2="10" style="stroke:hsl(25, 100%, 50%);stroke-width:10" />
+                    <circle cx="40" cy="10" r="5" stroke="none" stroke-width="3" fill="hsl(25, 100%, 50%)" />
+                    
+                    <circle cx="10" cy="40" r="5" stroke="none" stroke-width="3" fill="hsl(180, 100%, 50%)" />
+                    <line x1="10" y1="40" x2="40" y2="40" style="stroke:hsl(180, 100%, 50%);stroke-width:10" />
+                    <circle cx="40" cy="40" r="5" stroke="none" stroke-width="3" fill="hsl(180, 100%, 50%)" />
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="main">
+            <div class="tekst" id="del2"><h2>Del 2: Trene et Nettverk</h2></div>
+            <div id="TfNp">
+                <div class="bilde" id="Tf">
+                    <img src="./bilder/tensorflow.jpg" alt="Bilde av tensorflow logoen, den består av en T og en F.">
+                </div>
+                <div class="bilde" id="Np">
+                    <img src="./bilder/numpy logo.png" alt="Bilde av numpy logoen, den består av en kube med en N på en av siden.e">
+                </div>
+            </div>
+        <div class="tekst" id="IntroOgPip1">
+            <p>Ved hjelp av kunnskapen fra "basics" kan vi bygge et enkelt nettverk som kan kjenne igjen håndskrevne tall på ensfarget bakgrunn. I denne delen bygger og trener vi modellen og i neste del lager vi et program som laster modellen og tar imot en input. I denne delen trenger du en python IDE med bibliotekene tensorflow og numpy. Om du ikke har dem bruk følgenede kommandoer i python terminalen din.</p>
+            <div class="pip">
+                <ul>
+                <li>pip install tensorflow</li>
+                <li>pip install numpy</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tekst" id="import">
+            <p>Først må vi gjøre noen importer. Tensorflow er et biblioteket som håndterer selve nettverket med blandt perceptron lag, aktiverings funkjoner og andre nødvendige algoritmer. Numpy lar oss gjøre arimetiske operasjoner på lister samt hente index av det høyeste elementet. Os gir oss tilgang på windows funkjoner som blandt annet å navigere mapper.</p>
+            <div class="kodediv">
+                <ol class="kode">
+                    <li>"""imports"""</li>
+                    <li> </li>
+                    <li><span class="operator">import</span> <span class="klasse">tensorflow</span> <span class="operator">as</span> <span class="klasse">tf</span></li>
+                    <li><span class="operator">from</span> <span class="klasse">tensorflow</span>.<span class="klasse">keras</span>.layers <span class="operator">import</span> <span class="klasse">Dense</span>, <span class="klasse">Activation</span></li>
+                    <li><span class="operator">from</span> <span class="klasse">tensorflow</span>.<span class="klasse">keras</span>.models <span class="operator">import</span> <span class="klasse">Sequential</span></li>
+                    <li><span class="operator">from</span> <span class="klasse">tensorflow</span>.<span class="klasse">keras</span>.optimizers <span class="operator">import</span> <span class="klasse">Adam</span></li>
+                    <li><span class="operator">import</span> <span class="klasse">numpy</span> <span class="operator">as</span> <span class="klasse">np</span></li>
+                    <li><span class="operator">import</span> <span class="klasse">os</span></li>
+                    <li> </li>
+                    <li><span class="variabel">PATH</span> = <span class="klasse">os</span>.<span class="variabel">path</span>.<span class="metfun">dirname</span>(<span class="variabel">__file__</span>)</li>
+                    <li><span class="klasse">os</span>.<span class="metfun">chdir</span>(<span class="variabel">PATH</span>)</li>
+                                        
+                </ol>
+            </div>
+        </div>
+        <div class="tekst" id="dataOgFormatering">
+            <p>Nå må vi importere et datasett med pixel informasjon fra håndskrevne siffre. I dette tilfellet bruker vi <a href="https://www.nist.gov/itl/products-and-services/emnist-dataset" target="_blank">EMNIST datasettet</a>. Data i EMNIST er formatert som matriser som representerer bilder med oppløsning på $28*28$ pixler med gråskala data. En matrise kan ikke sendes inn i nettverket vi bygger derfor må de omformes til vektorer med $784\text{ }(28^{2})$ elementer. I tilleg til pixeldata (X) innholder datasettet også datasettet y verdier som representerer sannheten netverket skal jobbe mot. I dette tilfellet er disse enkele interger verdier. Disse må derfor omformateres til vektorer med boolske verdier hvor den eneste verdien som er på er den der indexen samsvarer med sannheten.
+            </p>
+            <div class="kodediv">
+                <ol start="12" class="kode">
+                    <li> </li>
+                    <li> </li>
+                    <li>"""retrive data"""</li>
+                    <li> </li>
+                    <li>(<span class="variabel">train_x</span>, <span class="variabel">train_y</span>),(<span class="variabel">test_x</span>, <span class="variabel">test_y</span>) = <span class="klasse">tf</span>.<span class="klasse">keras</span>.datasets.mnist.load_data()</li>
+                    <li> </li>
+                    <li>"""format data"""</li>
+                    <li> </li>
+                    <li><span class="variabel">train_x</span> = <span class="variabel">train_x</span>.<span class="metfun">reshape</span>(-1,784)</li>
+                    <li><span class="variabel">test_x</span> = <span class="variabel">test_x</span>.<span class="metfun">reshape</span>(-1,784)</li>
+                    <li> </li>
+                    <li><span class="variabel">y_table</span> = []</li>
+                    <li><span class="operator">for</span> <span class="variabel">y</span> <span class="operator">in</span> [<span class="variabel">train_y</span>,<span class="variabel">test_y</span>]:</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="variabel">y</span> = <span class="klasse">list</span>(<span class="variabel">y</span>)</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="variabel">use</span> = []</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="operator">for</span> <span class="variabel">i</span> <span class="operator">in</span> <span class="klasse">range</span>(<span class="metfun">len</span>(<span class="variabel">y</span>)):</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="tab">##</span> <span class="tab">##</span><span class="variabel">use</span>.<span class="metfun">append</span>((<span class="variabel">y</span>[<span class="variabel">i</span>],<span class="variabel">i</span>))</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="operator">for</span> <span class="variabel">sannhet</span>, <span class="variabel">element</span> <span class="operator">in</span> <span class="variabel">use</span>:</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="tab">##</span><span class="tab">##</span><span class="variabel">temp</span> = <span class="klasse">np</span>.<span class="metfun">zeros</span>(shape=(10,))</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="tab">##</span><span class="tab">##</span><span class="variabel">temp</span>[<span class="variabel">sannhet</span>] = 1</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="tab">##</span><span class="tab">##</span><span class="variabel">y</span>[<span class="variabel">element</span>] = <span class="variabel">temp</span></li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="variabel">y_table</span>.<span class="metfun">append</span>(<span class="klasse">np</span>.<span class="metfun">array</span>(<span class="variabel">y</span>))</li>      
+                    <li> </li>
+                    <li><span class="variabel">train_y</span> = <span class="variabel">y_table</span>[0]</li>
+                    <li><span class="variabel">test_y</span> = <span class="variabel">y_table</span>[1]</li>                                             
+                </ol>
+            </div>
+        </div>
+        <div class="tekst" id="modelCreation">
+            <p>Nå som datasettet er formatert kan vi lage en modell i tensorflow. Modellen består av et input lag, 3 indre lag med perceptroner og et ouput lag. De indre lagene bruker relu funksjonen og i outputen bruker vi softmax</p>
+            <div class="kodediv">
+                <ol start="37" class="kode">
+                    <li> </li>
+                    <li>"""lag model"""</li>
+                    <li> </li>
+                    <li><span class="variabel">model</span> = <span class="klasse">Sequential</span>()</li>
+                    <li><span class="variabel">model</span>.<span class="metfun">add</span>(<span class="klasse">Dense</span>(256,input_shape = (784,)))</li>
+                    <li><span class="variabel">model</span>.<span class="metfun">add</span>(<span class="klasse">Activation</span>("relu"))</li>
+                    <li> </li>
+                    <li><span class="variabel">model</span>.<span class="metfun">add</span>(<span class="klasse">Dense</span>(128))</li>
+                    <li><span class="variabel">model</span>.<span class="metfun">add</span>(<span class="klasse">Activation</span>("relu"))</li>
+                    <li> </li>
+                    <li><span class="variabel">model</span>.<span class="metfun">add</span>(<span class="klasse">Dense</span>(64))</li>
+                    <li><span class="variabel">model</span>.<span class="metfun">add</span>(<span class="klasse">Activation</span>("relu"))</li>
+                    <li> </li>
+                    <li><span class="variabel">model</span>.<span class="metfun">add</span>(<span class="klasse">Dense</span>(10))</li>
+                    <li><span class="variabel">model</span>.<span class="metfun">add</span>(<span class="klasse">Activation</span>("softmax"))</li>
+                    <li> </li>
+                    <li><span class="variabel">model</span>.<span class="metfun">compile</span>(loss = "categorical_crossentropy", optimizer = <span class="klasse">Adam</span>(learning_rate = 1e-3), metrics=["accuracy"])</li>    
+                </ol>
+            </div>
+        </div>
+        <div class="tekst" id="trainingAndTesting">
+            <p>Nå som vi har laget en modell må vi trene den. Deretter sjekker vi hvor ofte den har rett. deretter lagrer vi den i en mappe som heter modeller som ligger i samme mappe som scriptet er i.</p>
+            <div class="kodediv">
+                <ol start="54" class="kode">
+                    <li> </li>
+                    <li>"""tren modell"""</li>
+                    <li><span class="variabel">model</span>.<span class="metfun">fit</span>(<span class="variabel">train_x</span>, <span class="variabel">train_y</span>,batch_size=64, epochs=10,validation_split=0.1)</li>
+                    <li> </li>
+                    <li>"""sjekk riktighet"""</li>
+                    <li> </li>
+                    <li><span class="variabel">predictions</span> = <span class="variabel">model</span>.<span class="metfun">predict</span>(<span class="variabel">test_x</span>, batch_size=32)</li>
+                    <li> </li>
+                    <li><span class="variabel">acc_sum</span> = 0</li>
+                    <li><span class="variabel">prediction_n</span> = <span class="metfun">len</span>(<span class="variabel">predictions</span>)</li>
+                    <li><span class="operator">for</span> <span class="variabel">i</span> <span class="operator">in</span> <span class="klasse">range</span>(<span class="variabel">prediction_n</span>):</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="variabel">prediction</span> = <span class="klasse">np</span>.<span class="metfun">argmax</span>(predictions[<span class="variabel">i</span>])</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="operator">if</span> <span class="variabel">prediction</span> == <span class="klasse">np</span>.<span class="metfun">argmax</span>(<span class="variabel">test_y</span>[<span class="variabel">i</span>]):</li>
+                    <li><span class="tab">##</span><span class="tab">##</span><span class="tab">##</span><span class="tab">##</span><span class="variabel">acc_sum</span> += 1</li>
+                    <li> </li>
+                    <li><span class="variabel">acc</span> = (<span class="variabel">acc_sum</span>/<span class="variabel">prediction_n</span>)*100</li>
+                    <li> </li>
+                    <li><span class="metfun">print</span>(f"accuracy is {<span class="variabel">acc</span>}%")</li>
+                    <li> </li>
+                    <li><span class="variabel">model</span>.<span class="metfun">save</span>(PATH+"/modeller/min_model")</li>                                        
+                </ol>
+            </div>
+        </div>
+        <div class="tekst">
+            <p>I neste del skal vi lage et program som tar inn et bilde av et siffer og frutser hvilket siffer det er.</p>
+        </div>
+    </div>
+    <div class="Forrige">
+        <a href="perseptron.html" class="QuickLink"><img class="pil" src="./bilder/pil.svg" alt="pil som han klikkes på for å gå til forrige side">
+        </a>
+    </div>
+    <div class="Neste">
+        <a href="tutorial2.html" class="QuickLink"><img class="pil" src="./bilder/pil.svg" alt="pil som han klikkes på for å gå til neste side">
+        </a>
+    </div>
+    <div class="bottom"> </div>
+</body>
+</html>

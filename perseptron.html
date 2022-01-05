@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perceptron</title>
+    <!--kode er hentet fra https://tex.stackexchange.com/questions/23804/how-to-incorporate-tex-mathematics-into-a-website-->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      </script>
+      <script type="text/javascript"
+        src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      </script>
+    <!---->
+    <script src="./script/setup.js"></script>
+    <link rel="stylesheet" href="./stilark/page 1.css">
+</head>
+<body>
+    <div class="navbar inactive">
+        <ul>
+            <li><a class="intern_link" href="./index.html" >0: Hjem</a></li>
+            <li><a class="intern_link open" href="./perseptron.html">1: Basics</a></li>
+            <li><a class="intern_link" href="./tutorial1.html" >2: Praksis, Trening</a></li>
+            <li><a class="intern_link" href="./tutorial2.html" >3: Praksis, Bruk</a></li>
+        </ul>
+    </div>
+    <div class="altnav">
+        <div class="borgar">
+            <script src="./script/altnav.js"></script>
+            <button type="button" onclick="altnav()" >
+                <svg height="50" width="50" class="burgerIcon">
+                    <circle cx="10" cy="25" r="5" stroke="none" stroke-width="3" fill="hsl(180, 100%, 50%)" />
+                    <line x1="10" y1="25" x2="40" y2="25" style="stroke:hsl(180, 100%, 50%);stroke-width:10" />
+                    <circle cx="40" cy="25" r="5" stroke="none" stroke-width="3" fill="hsl(180, 100%, 50%)" />
+                    
+                    <circle cx="10" cy="10" r="5" stroke="none" stroke-width="3" fill="hsl(25, 100%, 50%)" />
+                    <line x1="10" y1="10" x2="40" y2="10" style="stroke:hsl(25, 100%, 50%);stroke-width:10" />
+                    <circle cx="40" cy="10" r="5" stroke="none" stroke-width="3" fill="hsl(25, 100%, 50%)" />
+                    
+                    <circle cx="10" cy="40" r="5" stroke="none" stroke-width="3" fill="hsl(180, 100%, 50%)" />
+                    <line x1="10" y1="40" x2="40" y2="40" style="stroke:hsl(180, 100%, 50%);stroke-width:10" />
+                    <circle cx="40" cy="40" r="5" stroke="none" stroke-width="3" fill="hsl(180, 100%, 50%)" />
+                </svg>
+            </button>   
+        </div>
+    </div>
+    <div class="main" id="mainB">
+        
+        <div class="overskrift2 tekst"><h2>Del 1: Basics</h2></div>
+        <div class="tekst" id="forklaring">
+            <h3>Perceptroner</h3>
+            <p>
+                Nevrale nettverk er bygget opp av lag med "perceptroner". Hvert perceptron er koblet sammen med alle perceptronene i det forestående laget av modelen. Hvert signal perceptronet motar fra det forestående laget er <i>vektlagt</i> med sin egen unike vekt, en vekt er et tall, som regel mellom -1 og 1 som multipliseres med en av verdiene fra det forrige laget. Når perceptronet har motatt alle de vektlagte verdiene summerer det dem. Deretter legger det til sin egen unike <i>skjevhet</i>. Skjevheten er ett tall som bestemmer for hvilket området perceptronet skal aktivere. Mattematisk kan dette utrykkes med følgende funkjon. Etter verdiene er blitt summert plugges de inn i en aktiverings funksjon ($\sigma(x)$) før y-verdien sendes videre til neste lag av nettverket. Mattematisk kan dette uttrykkes på følgende måte:
+            </p>
+        </div>
+        <div class="tekst" id="utrykk">
+            <div class="laTEX">
+                $$ y = \sigma \left(\sum_{n = 0}^{m-1}\left( L_n W_n \right) + b \right) $$
+            </div>
+            <p>
+                Der <i>m</i> er størrelesen på det forrige laget, <i>b</i> er perceptronets skjevhet, <i>L</i> er en liste av vediene fra det forrige laget og <i>W</i> er en liste av vektene fra det forrige laget.
+            </p>
+        </div>
+        <div class="tekst" id="funksjoner">
+            <h3>Noen aktiverings funkjoner:</h3>
+
+            <h4 class="relu">Rectified Linear Unit (relu): </h4>
+
+            <p class="laTEX relu">
+                $$\sigma(x) = \begin{cases} x , x > 0 \\ 0 , x \leq 0 \end{cases}$$
+            </p>
+            <h4 class="sigm">Sigmoid: </h4> 
+            <p class="laTEX sigm">
+               $$\sigma(x) = \frac{1}{1+e^{-x}}$$
+            </p>
+            <h4 class="tanh">
+                Tanh: 
+            </h4> 
+            <p class="laTEX tanh">
+                $$\sigma(x) = \tanh{x}$$
+            </p> 
+        </div>
+        <!--<div class="bilde" id="PerceptronTegning">
+            <img width="500px" height="200px" style="border: 1px solid black;">
+            
+        </div>-->
+        <div class="tekst" id="softmax">
+            <h3>Softmax fouksjonen</h3>
+            <p>Softmax funksjonen skiller seg ut fra de andre aktiverings funkjonene. I stede for å ta en enkelt verdi tar den alle verdiene fra laget i form av en vektor og omdanner vectoren slik at alle tallene kan summeres til 1. Disse tallene kan så brukes til å bestemme hva nettverket tror.</p>
+        </div>
+    </div>
+    <div class="Neste">
+        <a href="tutorial1.html" class="QuickLink"><img class="pil" src="./bilder/pil.svg" alt="pil som han klikkes på for å gå til neste side">
+        </a>
+    </div>
+    <div class="Forrige">
+        <a href="index.html" class="QuickLink"><img class="pil" src="./bilder/pil.svg" alt="pil som han klikkes på for å gå til forrige side">
+        </a>
+    </div>
+    <div class="bottom"> </div>
+</body>
+</html>
