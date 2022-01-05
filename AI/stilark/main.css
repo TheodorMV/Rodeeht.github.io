@@ -1,3 +1,4 @@
+/*generelt*/
 *{
     margin:0px;
     padding:0px;
@@ -23,7 +24,7 @@
     top: 50px;
 }
 
-/*navbar*/
+/*navigasjon*/
 .navbar{
     background-color: hsl(0,0%,0%);
     height: 65px;
@@ -80,7 +81,7 @@
 #li3{grid-area: il3;}
 #li4{grid-area: il4;}
 
-
+/*hamburger meny*/
 .altnav{
     width: 60px;
     height: 60px;
@@ -166,6 +167,47 @@ button{
 
 
 @media(max-width: 800px){
+    
+
+    /*generelt*/
+    
+    .main{
+        width:100%;
+        top: 25px;
+    }
+
+    .tekst{
+        font-size: 1.2rem;
+        width:80%;
+    }
+
+    .kode, .pip {
+        font-size: 0.8rem;
+    }
+    
+    /*kode*/
+
+    ol{
+        list-style: none;
+    }
+    .kodediv{
+        margin:30px 0px;
+        padding: 30px 10px;
+    }
+
+    /*hamburger meny*/
+    .inactive{
+        display:none;
+    }
+    .altnav{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+    .borgar{
+        visibility:visible;
+    }
+
     .navbar{
         height:100vh;
         position:fixed;
@@ -179,35 +221,5 @@ button{
         "il2"
         "il3"
         "il4";
-    }
-    
-    .main{
-        width:100%;
-        top: 25px;
-    }
-    .kode, .pip {
-        font-size: 0.8rem;
-    }
-    .tekst{
-        font-size: 1.2rem;
-        width:80%;
-    }
-    ol{
-        list-style: none;
-    }
-    .kodediv{
-        margin:30px 0px;
-        padding: 30px 10px;
-    }
-    .inactive{
-        display:none;
-    }
-    .altnav{
-        display:flex;
-        justify-content:center;
-        align-items:center;
-    }
-    .borgar{
-        visibility:visible;
     }
 }

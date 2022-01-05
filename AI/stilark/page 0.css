@@ -31,6 +31,7 @@ h3{
     font-size: 1.2rem;
     font-weight: bold;
 }
+/*lenker*/
 a{
     color:hsl(180, 68%, 50%);
     text-decoration:none;
@@ -41,12 +42,14 @@ a{
     align-items: center;
     transition: 0.05s;
 }
+
 .linkbox:hover{
     transition: 1s;
     font-size: 1.5rem;
     border: 10px inset hsl(180, 68%, 50%);
 
 }
+
 #overskrift{
     grid-area: Os;
     background-color: hsla( 30, 100%, 100%, 80%);
