@@ -57,6 +57,14 @@
         <div class="tekst" id="utrykk">
             <div class="laTEX">
                 $$ y = \sigma \left(\sum_{n = 0}^{m-1}\left( L_n W_n \right) + b \right) $$
+                 <!--kode er hentet fra https://tex.stackexchange.com/questions/23804/how-to-incorporate-tex-mathematics-into-a-website-->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      </script>
+      <script type="text/javascript"
+        src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      </script>
+    <!---->
             </div>
             <p>
                 Der <i>m</i> er størrelesen på det forrige laget, <i>b</i> er perceptronets skjevhet, <i>L</i> er en liste av vediene fra det forrige laget og <i>W</i> er en liste av vektene fra det forrige laget.
