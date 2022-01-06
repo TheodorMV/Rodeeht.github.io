@@ -12,14 +12,22 @@
 h3{
     margin-top: 60px;
 }
+
+.tekst{
+    color:hsl(180, 68%, 50%);
+}
+
+/*bakgrunn*/
+
 .bakgrunn{
     filter: invert(100%) grayscale(100%);
     position:fixed;
     z-index: -1;
     width:  100%;
 }
-.tekst{
-    color:hsl(180, 68%, 50%);
+
+.bakgrunn img{
+    width:  100%;
 }
 
 /*lenker*/
