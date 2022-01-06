@@ -16,10 +16,14 @@ h3{
     filter: invert(100%) grayscale(100%);
     position:fixed;
     z-index: -1;
+    width:  100%;
 }
 .tekst{
     color:hsl(180, 68%, 50%);
 }
+
+/*lenker*/
+
 .linkbox{
     border: 10px outset hsla(180, 100%, 50%, 80%);
     background-color:hsla( 0,0%,0%);
@@ -31,7 +35,7 @@ h3{
     font-size: 1.2rem;
     font-weight: bold;
 }
-/*lenker*/
+
 a{
     color:hsl(180, 68%, 50%);
     text-decoration:none;
@@ -50,6 +54,18 @@ a{
 
 }
 
+#lk1{
+    grid-area: l1;
+}
+#lk2{
+    grid-area: l2;
+}
+#lk3{
+    grid-area: l3;
+}
+
+/*info boks*/
+
 #overskrift{
     grid-area: Os;
     background-color: hsla( 30, 100%, 100%, 80%);
@@ -63,15 +79,6 @@ a{
 }
 #overskrift > *{
     width: 100%;
-}
-#lk1{
-    grid-area: l1;
-}
-#lk2{
-    grid-area: l2;
-}
-#lk3{
-    grid-area: l3;
 }
 
 
