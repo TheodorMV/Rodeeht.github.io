@@ -1,0 +1,57 @@
+*{
+    margin:0px;
+    padding:0px;
+    background-color: #000;
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#main{
+    width: 608px;
+    height: 608px;
+    border: 1px solid #000000;
+    user-select: none;
+}
+
+.gameEl{
+    display:none;
+}
+
+#start{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:#000000c7;
+    display: flex;
+    gap:20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#startbutton{
+    width:128px;
+    height:64px;
+    color:#fff;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid #f00;
+    border-radius: 16px;
+}
+#instructions > p {
+    color:#fff;
+    font-size: 16px;
+    background-color:none;
+    text-align:center;
+}
