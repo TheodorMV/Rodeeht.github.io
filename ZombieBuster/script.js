@@ -142,7 +142,7 @@ const playerWeapons = ["pistol","sniper","assault","smg","shotgun"];
 const weapons = {
     "pistol":{name: "pistol", range: 850, speed: 16, rate: 500, spread: Math.PI/24, bsize: 16, multi: 1, damage: 1},
     "assault":{name: "pistol", range: 850, speed: 16, rate: 250, spread: Math.PI/24, bsize: 16, multi: 1, damage: 2},
-    "smg":{name: "pistol", range: 850, speed: 24, rate: 100, spread: Math.PI/12, bsize: 16, multi: 2, damage: 1},
+    "smg":{name: "pistol", range: 850, speed: 24, rate: 100, spread: Math.PI/6, bsize: 16, multi: 2, damage: 1},
     "shotgun":{name: "pistol", range: 850, speed: 8, rate: 750, spread: Math.PI/6, bsize: 16, multi: 5, damage: 1},
     "sniper":{name: "pistol", range: 850, speed: 32, rate: 1000, spread: Math.PI/32, bsize: 16, multi: 1, damage: 5},//i don't have a sprite for a sniper shot so the pistol one it is
      
@@ -459,7 +459,7 @@ class UI{ //lager UI
         cxt.fillText(`score: ${timer.get()}`, WIDTH-128-32, 32, 128);
 
         cxt.fillStyle = "#000";
-        cxt.fillText(`weapon: ${entities[player].weapon.type}`, 8, HEIGHT-8, 128);
+        cxt.fillText(`weapon: ${entities[player].weapon.type}`, 8, HEIGHT-8, 128); //skriver ut våpen navn i hjørnet
 
     }
 };
