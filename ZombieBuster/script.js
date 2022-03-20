@@ -361,7 +361,7 @@ class Pickup extends GameObject{
     }
 
     update(){//returnerer true om den ble plukket opp
-        if(Math.sqrt((entities[player].tx - this.tx)**2 + (entities[player].ty - this.ty)**2) <= this.radius){
+        if(Math.sqrt((entities[player].tx - this.tx)**2 + (entities[player].ty - this.ty)**2) <= this.radius + entities[player].radius){
             entities[player].weapon.set(this.content,weapons[this.content]);
             console.log("picked up thing")
             return true;
