@@ -144,7 +144,7 @@ const weapons = {
     "pistol":{name: "pistol", range: 850, speed: 16, rate: 500, spread: Math.PI/24, bsize: 16, multi: 1, damage: 1},
     "assault":{name: "pistol", range: 500, speed: 16, rate: 250, spread: Math.PI/24, bsize: 16, multi: 1, damage: 2},
     "smg":{name: "pistol", range: 200, speed: 24, rate: 100, spread: Math.PI/6, bsize: 16, multi: 2, damage: 1},
-    "shotgun":{name: "pistol", range: 150, speed: 8, rate: 750, spread: Math.PI/4, bsize: 16, multi: 5, damage: 1},
+    "shotgun":{name: "pistol", range: 150, speed: 24, rate: 750, spread: Math.PI/4, bsize: 16, multi: 5, damage: 1},
     "sniper":{name: "pistol", range: 850, speed: 32, rate: 1000, spread: Math.PI/32, bsize: 16, multi: 1, damage: 5},//i don't have a sprite for a sniper shot so the pistol one it is
      
     "fists":{name: "fists", range: 32, speed: 32, rate: 500, spread: 0 ,bsize: 16, multi: 1, damage: 1},
@@ -180,11 +180,13 @@ class Shot extends GameObject{ //kule objekt
         for(let i = 0; i < entities.length; i++){ //for alle objekter sjekker om objektet er i kontakt med kula
             if(this.check_hit(entities[i]) && (entities[i].type != this.owner) && (entities[i].type != this.type)){ //gøyal bug hvis man ikke inkuderer siste condition (kula treffer seg selv)
                 let oldHp = entities[i].hp; //Setter gammel hp
+
                 if(isNaN(entities[i].hp)){
                     console.log(this);
                     console.log(entities[i]);
                     throw new Error("object hp is nan 1");
                 }
+
                 if(entities[i].type == "player"){
                     if (entities[i].iframes < 0){ //hvis objektet er pleryer og den ikke har invincible frames 
                         entities[i].iframes = 100; //gir iframes
@@ -195,6 +197,7 @@ class Shot extends GameObject{ //kule objekt
                     entities[i].hp -= this.hp;
                     this.hp -= oldHp;
                 }
+                
                 if(isNaN(entities[i].hp)){
                     console.log(this);
                     console.log(entities[i]);
@@ -302,7 +305,7 @@ class Player extends GameObject{
     constructor(){
         super(WIDTH/2-32, HEIGHT/2-32, 64, "player");//konsturerer base
         this.pressed = [false,false,false,false]; //bool array med taster som er nede; index 0 = w, index 1 = a, index 2 = s, index 3 = d
-        this.weapon = new Weapon(weapons["shotgun"],"player");
+        this.weapon = new Weapon(weapons["pistol"],"player");
         this.target_x = this.tx; //x kordinat det siktes på
         this.target_y = this.ty; //y kordinat det siktes på
         this.shooting = false;
@@ -370,7 +373,7 @@ class Pickup extends GameObject{
     update(){//returnerer true om den ble plukket opp
         if(this.check_hit(entities[player])){
             entities[player].weapon.set(this.content,weapons[this.content]);
-            console.log("picked up thing")
+            //console.log("picked up thing")
             return true;
         }        
         return false;
