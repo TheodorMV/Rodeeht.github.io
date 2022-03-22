@@ -141,9 +141,9 @@ const playerWeapons = ["pistol","sniper","assault","smg","shotgun"];
 
 const weapons = {
     "pistol":{name: "pistol", range: 850, speed: 16, rate: 500, spread: Math.PI/24, bsize: 16, multi: 1, damage: 1},
-    "assault":{name: "pistol", range: 850, speed: 16, rate: 250, spread: Math.PI/24, bsize: 16, multi: 1, damage: 2},
-    "smg":{name: "pistol", range: 850, speed: 24, rate: 100, spread: Math.PI/6, bsize: 16, multi: 2, damage: 1},
-    "shotgun":{name: "pistol", range: 850, speed: 8, rate: 750, spread: Math.PI/6, bsize: 16, multi: 5, damage: 1},
+    "assault":{name: "pistol", range: 500, speed: 16, rate: 250, spread: Math.PI/24, bsize: 16, multi: 1, damage: 2},
+    "smg":{name: "pistol", range: 200, speed: 24, rate: 100, spread: Math.PI/6, bsize: 16, multi: 2, damage: 1},
+    "shotgun":{name: "pistol", range: 150, speed: 8, rate: 750, spread: Math.PI/6, bsize: 16, multi: 5, damage: 1},
     "sniper":{name: "pistol", range: 850, speed: 32, rate: 1000, spread: Math.PI/32, bsize: 16, multi: 1, damage: 5},//i don't have a sprite for a sniper shot so the pistol one it is
      
     "fists":{name: "fists", range: 32, speed: 32, rate: 500, spread: 0 ,bsize: 16, multi: 1, damage: 1},
@@ -344,6 +344,7 @@ class Player extends GameObject{
         }
         if(this.hp <= 0){
             this.dead = true;
+            mode = 0;
         }
         
     }
@@ -361,7 +362,7 @@ class Pickup extends GameObject{
     }
 
     update(){//returnerer true om den ble plukket opp
-        if(Math.sqrt((entities[player].tx - this.tx)**2 + (entities[player].ty - this.ty)**2) <= this.radius + entities[player].radius){
+        if(this.check_hit(entities[player])){
             entities[player].weapon.set(this.content,weapons[this.content]);
             console.log("picked up thing")
             return true;
@@ -384,6 +385,7 @@ class Gate extends GameObject{
     update(){
         if(this.hp <= 0){
             this.dead = true;
+            mode = 0;
         }
     }
 };
@@ -403,7 +405,7 @@ class Map{ //kartet i bakgrunnen
         this.sprites = [new Sprite("wall"), //hver sprite er 32px per side
                         new Sprite("wallGround")];
         for(let i = 1; i <= 7; i++){
-            this.sprites.push(new Sprite(`ground${i}`))
+            this.sprites.push(new Sprite(`ground${i}`));
         }
                         
     }
@@ -444,6 +446,7 @@ cxt.font = "24px Aleo"; //setter font størrelse
 class UI{ //lager UI
     constructor(){
         this.pHealth = new Sprite("health");
+        this.l = 0;
     }
 
     draw(){
@@ -460,7 +463,6 @@ class UI{ //lager UI
 
         cxt.fillStyle = "#000";
         cxt.fillText(`weapon: ${entities[player].weapon.type}`, 8, HEIGHT-8, 128); //skriver ut våpen navn i hjørnet
-
     }
 };
 
@@ -490,14 +492,14 @@ startBtn.addEventListener('click', (e) => {
 });
 
 mainEL.addEventListener("keydown",(e) => { //om en bevegelses kanpp blir trukket på setter korespodenede player.pressed til true
-    entities[player].pressed[keys[e.key]] = true;
+    entities[player].pressed[keys[e.key.toLowerCase()]] = true;
     if(e.key == " "){ //om det er space setter player.shooting til true
         entities[player].shooting = true;
     }
 });
 
 mainEL.addEventListener("keyup",(e) => { //om en knapp blir sluppet setter koreponderende variabel til false
-    entities[player].pressed[keys[e.key]] = false;
+    entities[player].pressed[keys[e.key.toLowerCase()]] = false;
     if(e.key == " "){
         entities[player].shooting = false;
     }
@@ -514,15 +516,15 @@ window.requestAnimationFrame(loop);
 };
 
 function loop(){
-    if(mode == 1){
+    if(mode == 0){
+        document.getElementById("start").style.display = "flex"; //gjør knapp synlig igjen
+    } else if (mode == 1){
         update();
         draw();
-    } else if (mode == 0){
-        document.getElementById("start").style.display = "flex"; //gjør knapp synlig igjen
     }
-    if(entities[player].dead||entities[gate].dead){//om spiller eller gate er døde sett mode til 0
+    /*if(entities[player].dead||entities[gate].dead){//om spiller eller gate er døde sett mode til 0
         mode = 0;
-    } 
+    }*/
     window.requestAnimationFrame(loop);
 }
 
@@ -532,7 +534,7 @@ function update(){
         if(entities[i].update() && (i != 0 || i != 1)){
             entities.splice(i,1);
             i--;
-        };
+        }
     }
     for(let i = 0; i < misc.length; i++){
         if(misc[i].update()){
@@ -572,7 +574,7 @@ function spawner(){
         }
         entities.push(new Enemy(sx, sy, enemyTypes[Math.floor(Math.random()*enemyTypes.length)]));
     }
-    if(spawn >= 99.9){
+    if(spawn >= 99.9 && misc.length < 2){
         misc.push(new Pickup(Math.random()*(WIDTH-32),Math.random()*(HEIGHT-32),Math.floor(Math.random()*5)));
     }
 }
