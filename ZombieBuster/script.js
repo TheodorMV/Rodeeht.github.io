@@ -33,10 +33,11 @@ class GameObject{  //base game objuect klasse
         this.type = t;
         
         this.sprite = new Sprite(t);//setter sprite av type, se lenger neded for definisjon
+
     }
 
     check_hit(obj){ //sjekker om objektet kolliderer med at annet objekt (obj) og returnerer bool
-        if(Math.sqrt((obj.tx - this.tx)**2 + (obj.ty - this.ty)**2) < obj.radius + this.radius){
+        if(Math.sqrt((obj.tx - this.tx)**2 + (obj.ty - this.ty)**2) <= obj.radius + this.radius){
             return true;
         } else {
             return false;
@@ -143,7 +144,7 @@ const weapons = {
     "pistol":{name: "pistol", range: 850, speed: 16, rate: 500, spread: Math.PI/24, bsize: 16, multi: 1, damage: 1},
     "assault":{name: "pistol", range: 500, speed: 16, rate: 250, spread: Math.PI/24, bsize: 16, multi: 1, damage: 2},
     "smg":{name: "pistol", range: 200, speed: 24, rate: 100, spread: Math.PI/6, bsize: 16, multi: 2, damage: 1},
-    "shotgun":{name: "pistol", range: 150, speed: 8, rate: 750, spread: Math.PI/6, bsize: 16, multi: 5, damage: 1},
+    "shotgun":{name: "pistol", range: 150, speed: 8, rate: 750, spread: Math.PI/4, bsize: 16, multi: 5, damage: 1},
     "sniper":{name: "pistol", range: 850, speed: 32, rate: 1000, spread: Math.PI/32, bsize: 16, multi: 1, damage: 5},//i don't have a sprite for a sniper shot so the pistol one it is
      
     "fists":{name: "fists", range: 32, speed: 32, rate: 500, spread: 0 ,bsize: 16, multi: 1, damage: 1},
@@ -166,7 +167,7 @@ class Shot extends GameObject{ //kule objekt
 
         this.range = type.range; //setter hvor langt skuddet kan gå
         this.speed = type.speed; //Setter prosjektil hastighet
-        this.damage = type.damage; //setter skade, 
+        this.hp = type.damage; //setter skade, 
         this.owner = owner; //setter eier
     
         this.mVec = retvec.chDirr(type.spread).mult(this.speed); //enderer tetnig basert på våpen spread og enderer retingen
@@ -179,16 +180,25 @@ class Shot extends GameObject{ //kule objekt
         for(let i = 0; i < entities.length; i++){ //for alle objekter sjekker om objektet er i kontakt med kula
             if(this.check_hit(entities[i]) && (entities[i].type != this.owner) && (entities[i].type != this.type)){ //gøyal bug hvis man ikke inkuderer siste condition (kula treffer seg selv)
                 let oldHp = entities[i].hp; //Setter gammel hp
-
+                if(isNaN(entities[i].hp)){
+                    console.log(this);
+                    console.log(entities[i]);
+                    throw new Error("object hp is nan 1");
+                }
                 if(entities[i].type == "player"){
                     if (entities[i].iframes < 0){ //hvis objektet er pleryer og den ikke har invincible frames 
                         entities[i].iframes = 100; //gir iframes
-                        entities[i].hp -= this.damage; //trekker damage fra hp
-                        this.damage -= oldHp; 
+                        entities[i].hp -= this.hp; //trekker damage fra hp
+                        this.hp -= oldHp; 
                     }
                 } else {
-                    entities[i].hp -= this.damage;
-                    this.damage -= oldHp;
+                    entities[i].hp -= this.hp;
+                    this.hp -= oldHp;
+                }
+                if(isNaN(entities[i].hp)){
+                    console.log(this);
+                    console.log(entities[i]);
+                    throw new Error("object hp is nan 2");
                 }
 
             }
@@ -196,7 +206,7 @@ class Shot extends GameObject{ //kule objekt
                 break;
             }
         }
-        if(this.damage <= 0){//ved å trekke oldhp fra damage og sjekke om damage er mindre enn eller lik 0 skaper jeg en penetrating effekt
+        if(this.hp <= 0){//ved å trekke oldhp fra damage og sjekke om damage er mindre enn eller lik 0 skaper jeg en penetrating effekt
             return true;
         }
         return this.move();
@@ -252,11 +262,8 @@ class Enemy extends GameObject{
         this.detect(entities[player]);
         this.move();
         this.HPmanager();
-        if((this.x <= WIDTH/2 + 64)&&(this.x >= WIDTH/2 - 64)&&(this.y <= -64)){
-            return true;
-        } else {
-            return this.dead;
-        }
+        return this.dead;
+        
     }
 
     detect(obj){ //sjekker om et objekt er innenfor sysvidde om ikke setter gate som mål
@@ -295,7 +302,7 @@ class Player extends GameObject{
     constructor(){
         super(WIDTH/2-32, HEIGHT/2-32, 64, "player");//konsturerer base
         this.pressed = [false,false,false,false]; //bool array med taster som er nede; index 0 = w, index 1 = a, index 2 = s, index 3 = d
-        this.weapon = new Weapon(weapons["pistol"],"player");
+        this.weapon = new Weapon(weapons["shotgun"],"player");
         this.target_x = this.tx; //x kordinat det siktes på
         this.target_y = this.ty; //y kordinat det siktes på
         this.shooting = false;
@@ -307,10 +314,8 @@ class Player extends GameObject{
         if(vec.x&&vec.y){//om det både er x bevegelse og y bevegelse setter riktig fart 
             vec.set(vec.x,vec.y,this.speed);
         }
-
         this.x += vec.x; //oppdaterer posijonen
         this.y += vec.y;
-
 
         //sjekker om spiller er på vei ut av arenaen
         if(this.x >= WIDTH-2*this.radius){
@@ -338,6 +343,7 @@ class Player extends GameObject{
     }
 
     HPmanager(){
+        if(isNaN(this.hp)) console.log(weapons);
         this.iframes--; //dektementerer ifames
         if(this.hp > this.maxHp){
             this.hp = this.maxHp;
@@ -375,12 +381,13 @@ class Pickup extends GameObject{
 class Gate extends GameObject{
     width = 128; 
     height = 48;
-    maxHp = 1e3;
+    maxHp = 5e2;
     constructor(){
         super(WIDTH/2-64, 0, 64, "gate");
         this.hp = this.maxHp;
         this.tx += this.width/4; //trenger spessiell initialisering siden gate ikke er kvadratisk
         this.ty += this.height/2;
+        this.radius = 64;
     }
     update(){
         if(this.hp <= 0){
@@ -534,6 +541,7 @@ function update(){
         if(entities[i].update() && (i != 0 || i != 1)){
             entities.splice(i,1);
             i--;
+
         }
     }
     for(let i = 0; i < misc.length; i++){
