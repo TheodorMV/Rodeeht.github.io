@@ -243,8 +243,8 @@ class Sprite{ //sprite klasse
 class FrameAnimation{ // klasse for animasjon
     constructor(path, frametime){ // tar navnet på animasjonen og tiden mellom hver frame i milliskunder
         this.num = document.getElementsByClassName(path).length; //antall frames
-        this.frames = [];
-        for(let i = 1; i <= this.num; i++){
+      
+          this.frames = [];for(let i = 1; i <= this.num; i++){
             this.frames.push(new Sprite(`${path}${i}`)); //lagerer frames
         }
         this.tracker = 0; //holder styr på frames
@@ -539,9 +539,9 @@ class Gate extends GameObject{
 
 let gateStopBox = {
     tx: WIDTH/2,
-    ty:       0,
+    ty:       16,
     width:   64,
-    height:  32
+    height:  16
 }
 
 class GameMap{ //kartet i bakgrunnen

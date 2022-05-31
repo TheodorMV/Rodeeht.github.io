@@ -68,7 +68,7 @@ input{
     width:                      10vw;
     height:                     10vh;
     display:                    flex;
-    border:                     5px solid #f00;
+    border:                     5px solid #ac3232;
     background-color:           none;
     border-radius:              15px;
 }
@@ -109,7 +109,7 @@ table{
 
 tr{
     gap:                        20px;
-    border-bottom:              3px solid #f00;
+    border-bottom:              3px solid #ac3232;
     
 }
 
