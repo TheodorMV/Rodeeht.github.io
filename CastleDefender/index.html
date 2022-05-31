@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Castle Defender</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="main">
+        
+        <img id="spit" class="gameEl" src="./sprites/spit.png">
+        <img id="firebolt" class="gameEl" src="./sprites/firebolt.png">
+        <img id="icecicles" class="gameEl" src="./sprites/icecicles.png">
+        <img id="flamethrower" class="gameEl" src="./sprites/flamethrower.png">
+        <img id="lightningbolt" class="gameEl" src="./sprites/lightningbolt.png">
+        <img id="shockwave" class="gameEl" src="./sprites/shockwave.png">
+
+        <img id="fireboltIcon" class="gameEl" src="./sprites/fireboltIcon.png">
+        <img id="iceciclesIcon" class="gameEl" src="./sprites/iceciclesIcon.png">
+        <img id="flamethrowerIcon" class="gameEl" src="./sprites/flamethrowerIcon.png">
+        <img id="lightningboltIcon" class="gameEl" src="./sprites/lightningboltIcon.png">
+        <img id="shockwaveIcon" class="gameEl" src="./sprites/shockwaveIcon.png">
+
+        <img id="fireboltIcon64" class="gameEl" src="./sprites/fireboltIcon64.png">
+        <img id="iceciclesIcon64" class="gameEl" src="./sprites/iceciclesIcon64.png">
+        <img id="flamethrowerIcon64" class="gameEl" src="./sprites/flamethrowerIcon64.png">
+        <img id="lightningboltIcon64" class="gameEl" src="./sprites/lightningboltIcon64.png">
+        <img id="shockwaveIcon64" class="gameEl" src="./sprites/shockwaveIcon64.png">
+
+        <img id="wall" class="gameEl" src="./sprites/wallTile.png">
+        <img id="wallGround" class="gameEl"wda src="./sprites/wallGroundTile.png">
+        <img id="ground1" class="gameEl" src="./sprites/groundTile.png">
+        <img id="ground2" class="gameEl" src="./sprites/groundTile2.png">
+        <img id="ground3" class="gameEl" src="./sprites/groundTile3.png">
+        <img id="ground4" class="gameEl" src="./sprites/groundTile4.png">
+        
+        <img id="gate" class="gameEl" src="./sprites/gate.png">
+
+        <img id="fists" class="gameEl">
+
+        <img id="health" class="gameEl" src = "./sprites/health.png">
+        <img id="UIdetails" class="gameEl" src = "./sprites/UI.png">
+ 
+        <div id = "playerDiv">
+            <img id="player" class="gameEl" src="./sprites/PlayerIdeal.png" width="32px" height="32px">
+            <div id="PlayerRunning">
+                <div id="PlayerRunningRight">
+                    <img id="PlayerRunningRight1" class="gameEl PlayerRunningRight" src="./sprites/playerRunning-0001.png" width="32px" height="32px">
+                    <img id="PlayerRunningRight2" class="gameEl PlayerRunningRight" src="./sprites/playerRunning-0002.png" width="32px" height="32px">
+                    <img id="PlayerRunningRight3" class="gameEl PlayerRunningRight" src="./sprites/playerRunning-0003.png" width="32px" height="32px">
+                    <img id="PlayerRunningRight4" class="gameEl PlayerRunningRight" src="./sprites/playerRunning-0004.png" width="32px" height="32px">
+                    <img id="PlayerRunningRight5" class="gameEl PlayerRunningRight" src="./sprites/playerRunning-0005.png" width="32px" height="32px">
+                    <img id="PlayerRunningRight6" class="gameEl PlayerRunningRight" src="./sprites/playerRunning-0006.png" width="32px" height="32px">
+                    <img id="PlayerRunningRight7" class="gameEl PlayerRunningRight" src="./sprites/playerRunning-0007.png" width="32px" height="32px">
+                </div>
+                <div id="PlayerRunningLeft">
+                    <img id="PlayerRunningLeft1" class="gameEl PlayerRunningLeft" src="./sprites/playerRunningL-0001.png"  width="32px" height="32px" >
+                    <img id="PlayerRunningLeft2" class="gameEl PlayerRunningLeft" src="./sprites/playerRunningL-0002.png"  width="32px" height="32px" >
+                    <img id="PlayerRunningLeft3" class="gameEl PlayerRunningLeft" src="./sprites/playerRunningL-0003.png"  width="32px" height="32px" >
+                    <img id="PlayerRunningLeft4" class="gameEl PlayerRunningLeft" src="./sprites/playerRunningL-0004.png"  width="32px" height="32px" >
+                    <img id="PlayerRunningLeft5" class="gameEl PlayerRunningLeft" src="./sprites/playerRunningL-0005.png"  width="32px" height="32px" >
+                    <img id="PlayerRunningLeft6" class="gameEl PlayerRunningLeft" src="./sprites/playerRunningL-0006.png"  width="32px" height="32px" >
+                    <img id="PlayerRunningLeft7" class="gameEl PlayerRunningLeft" src="./sprites/playerRunningL-0007.png"  width="32px" height="32px" >
+                </div>
+            </div>
+        </div>
+        <div id = "SkullDiv">
+            <img id="skull" class = "gameEl" src="./sprites/SkullAnim1.png">
+            <div id="SkullAnim">
+                <img id="SkullAnim1" class = "gameEl SkullAnim" src="./sprites/SkullAnim1.png">
+                <img id="SkullAnim2" class = "gameEl SkullAnim" src="./sprites/SkullAnim2.png">
+                <img id="SkullAnim3" class = "gameEl SkullAnim" src="./sprites/SkullAnim3.png">
+                <img id="SkullAnim4" class = "gameEl SkullAnim" src="./sprites/SkullAnim4.png">
+                <img id="SkullAnim5" class = "gameEl SkullAnim" src="./sprites/SkullAnim5.png">
+                <img id="SkullAnim6" class = "gameEl SkullAnim" src="./sprites/SkullAnim6.png">
+                <img id="SkullAnim7" class = "gameEl SkullAnim" src="./sprites/SkullAnim7.png">
+                <img id="SkullAnim8" class = "gameEl SkullAnim" src="./sprites/SkullAnim8.png">
+            </div>
+        </div>
+        <div id="SkeletonDiv">
+            <img id="skeleton" class = "gameEl" src = "./sprites/SkeletonIdeal.png">
+            <div id="SkeletonMovingLeft">
+                <img id="SkeletonMovingLeft1" class="gameEl SkeletonMovingLeft" src="./sprites/SkeletonMovingLeft1.png">
+                <img id="SkeletonMovingLeft2" class="gameEl SkeletonMovingLeft" src="./sprites/SkeletonMovingLeft2.png">
+                <img id="SkeletonMovingLeft3" class="gameEl SkeletonMovingLeft" src="./sprites/SkeletonMovingLeft3.png">
+                <img id="SkeletonMovingLeft4" class="gameEl SkeletonMovingLeft" src="./sprites/SkeletonMovingLeft4.png">
+                <img id="SkeletonMovingLeft5" class="gameEl SkeletonMovingLeft" src="./sprites/SkeletonMovingLeft5.png">
+                <img id="SkeletonMovingLeft6" class="gameEl SkeletonMovingLeft" src="./sprites/SkeletonMovingLeft6.png">
+                <img id="SkeletonMovingLeft7" class="gameEl SkeletonMovingLeft" src="./sprites/SkeletonMovingLeft7.png">
+                <img id="SkeletonMovingLeft8" class="gameEl SkeletonMovingLeft" src="./sprites/SkeletonMovingLeft8.png">
+            </div>
+            <div id="SkeletonMovingRight">
+                <img id="SkeletonMovingRight1" class="gameEl SkeletonMovingRight" src="./sprites/SkeletonMovingRight1.png">
+                <img id="SkeletonMovingRight2" class="gameEl SkeletonMovingRight" src="./sprites/SkeletonMovingRight2.png">
+                <img id="SkeletonMovingRight3" class="gameEl SkeletonMovingRight" src="./sprites/SkeletonMovingRight3.png">
+                <img id="SkeletonMovingRight4" class="gameEl SkeletonMovingRight" src="./sprites/SkeletonMovingRight4.png">
+                <img id="SkeletonMovingRight5" class="gameEl SkeletonMovingRight" src="./sprites/SkeletonMovingRight5.png">
+                <img id="SkeletonMovingRight6" class="gameEl SkeletonMovingRight" src="./sprites/SkeletonMovingRight6.png">
+                <img id="SkeletonMovingRight7" class="gameEl SkeletonMovingRight" src="./sprites/SkeletonMovingRight7.png">
+                <img id="SkeletonMovingRight8" class="gameEl SkeletonMovingRight" src="./sprites/SkeletonMovingRight8.png">
+            </div>
+        </div>
+
+
+        <canvas id="disp" height= "608px" width = "608px">
+        </canvas>
+
+       <!--<div id="ramme">
+            <img id="frame" src="./sprites/frame.png">
+        </div>-->
+        
+    </div>
+
+    
+
+    <div id="meny">
+
+    </div>
+
+    <table id="Scores">
+        <thead>
+            <tr>
+                <td>Rank: </td>
+                <td>Name: </td>
+                <td>Score: </td>
+            </tr>
+        </thead>
+        <tbody id="scoreBoard">
+
+        </tbody>
+    </table>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script>
+
+    <script src="./script.js"></script>
+</body>
+</html>
